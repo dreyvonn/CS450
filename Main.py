@@ -1,8 +1,8 @@
 from sklearn import datasets
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 import numpy as np
-import HardCodedClassifier
+from HardCodedClassifier import HardCodedClassifier
 
 iris = datasets.load_iris()
 data = np.array(iris.data)
@@ -31,5 +31,15 @@ classifier2 = HardCodedClassifier()
 model2 = classifier2.fit(data_train, target_train)
 
 target_predicted2 = model2.predict(data_test)
+
+missed = 0
+
+for i in range(len(target_predicted2)):
+    if target_predicted2[i] != target_test[i]:
+        missed += 1
+
+accuracy2 = int(((target_test.size - missed) / target_test.size) * 100)
+
+print("My Accuracy = ", accuracy2, "%\n")
 
 
